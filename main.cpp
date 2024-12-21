@@ -28,8 +28,24 @@ struct LinkedList{
         }
         length++;
     }
+
+    void display(){
+        Node* temp = start;
+        for(int i = 0; i < length ; i++){
+            cout<<"Index: "<<temp->index<<" Value: "<<temp->data<<endl;
+            temp = temp->next;
+        }
+    }
 };
 
 int main(){
+    LinkedList l1;
+
+    l1.addANewNode(1);
+    l1.addANewNode(2);
+    l1.addANewNode(3);
+    l1.addANewNode(4);
+
+    l1.display();
     return 0;
 }
