@@ -1,6 +1,12 @@
 #include<iostream>
 using namespace std;
 
-int main(){
+struct Node{
+    int data;
+    int index;
+    Node* next;
+};
 
+int main(){
+    return 0;
 }
