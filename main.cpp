@@ -36,6 +36,22 @@ struct LinkedList{
             temp = temp->next;
         }
     }
+
+    void insertAtStart(int value){
+        Node* temp = start;
+        for(int i = 0; i < length; i++){
+            temp->index++;
+            temp = temp->next;
+        }
+        Node* n = new Node;
+        n->data = value;
+        n->index = 0;
+        n->next = start;
+        start = n;
+        length++;
+
+        
+    }
 };
 
 int main(){
@@ -46,6 +62,10 @@ int main(){
     l1.addANewNode(3);
     l1.addANewNode(4);
 
+    cout<<"Before Inserting At Start: "<<endl;
+    l1.display();
+    cout<<"Before Inserting At Start: "<<endl;
+    l1.insertAtStart(0);
     l1.display();
     return 0;
 }
