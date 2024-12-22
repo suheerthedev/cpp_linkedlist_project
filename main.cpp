@@ -110,7 +110,7 @@ struct LinkedList
             n->next = temp->next;
             temp->next = n;
 
-            Node* temp1 =n->next;
+            Node* temp1 = n->next;
             for(int i = index; i < length; i++){
                 temp1->index++;
                 temp1 =temp1->next;
@@ -144,10 +144,12 @@ int main()
     l1.addANewNode(3);
     l1.addANewNode(4);
 
-    cout << "Before Deleting At Start: " << endl;
+    cout << "Before Inserting: " << endl;
     l1.display();
-    cout << "After Deleting At Start: " << endl;
-    l1.deleteBegin();
+    cout << "After Inserting: " << endl;
+    l1.insertAt(2, 4);
     l1.display();
+
+    
     return 0;
 }
