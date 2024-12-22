@@ -14,7 +14,7 @@ struct LinkedList
     Node *last;
     int length = 0;
 
-    //function to add a new node at the end most
+    // function to add a new node at the end most
     void addANewNode(int value)
     {
         Node *n = new Node;
@@ -35,7 +35,7 @@ struct LinkedList
         length++;
     }
 
-    //function to traverse and display the content of the list
+    // function to traverse and display the content of the list
     void display()
     {
         Node *temp = start;
@@ -46,8 +46,7 @@ struct LinkedList
         }
     }
 
-
-    //function to insert a new node in the start of the list
+    // function to insert a new node in the start of the list
     void insertAtStart(int value)
     {
         Node *temp = start;
@@ -64,7 +63,7 @@ struct LinkedList
         length++;
     }
 
-    //function to insert a new node in the end of the list
+    // function to insert a new node in the end of the list
     void insertAtLast(int value)
     {
         Node *n = new Node;
@@ -76,7 +75,7 @@ struct LinkedList
         length++;
     }
 
-    //function to insert a new node at an already present index
+    // function to insert a new node at an already present index
     void insertAt(int index, int value)
     {
 
@@ -110,10 +109,11 @@ struct LinkedList
             n->next = temp->next;
             temp->next = n;
 
-            Node* temp1 = n->next;
-            for(int i = index; i < length; i++){
+            Node *temp1 = n->next;
+            for (int i = index; i < length; i++)
+            {
                 temp1->index++;
-                temp1 =temp1->next;
+                temp1 = temp1->next;
             }
             length++;
         }
@@ -123,15 +123,34 @@ struct LinkedList
         }
     }
 
-
-    void deleteBegin(){
+    void deleteBegin()
+    {
         start = start->next;
         length--;
-        Node* temp =  start;
-        for(int i = 0; i < length; i++){
+        Node *temp = start;
+        for (int i = 0; i < length; i++)
+        {
             temp->index--;
             temp = temp->next;
         }
+    }
+
+    void deleteEnd()
+    {
+        /*this function will go the index before the last one and
+        then we would update the last to comeback one node back
+        and update its pointer to nullptr
+        */
+        Node *temp = start;
+
+        for (int i = 0; i < length - 2; i++)
+        {
+            temp = temp->next;
+        }
+
+        last = temp;
+        last->next = nullptr;
+        length--;
     }
 };
 
@@ -144,12 +163,11 @@ int main()
     l1.addANewNode(3);
     l1.addANewNode(4);
 
-    cout << "Before Inserting: " << endl;
+    cout << "Before Deleting From Start: " << endl;
     l1.display();
-    cout << "After Inserting: " << endl;
-    l1.insertAt(2, 4);
+    cout << "After Deleting From Start: " << endl;
+    l1.deleteEnd();
     l1.display();
 
-    
     return 0;
 }
