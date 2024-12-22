@@ -14,6 +14,7 @@ struct LinkedList
     Node *last;
     int length = 0;
 
+    //function to add a new node at the end most
     void addANewNode(int value)
     {
         Node *n = new Node;
@@ -34,6 +35,7 @@ struct LinkedList
         length++;
     }
 
+    //function to traverse and display the content of the list
     void display()
     {
         Node *temp = start;
@@ -44,6 +46,8 @@ struct LinkedList
         }
     }
 
+
+    //function to insert a new node in the start of the list
     void insertAtStart(int value)
     {
         Node *temp = start;
@@ -60,6 +64,7 @@ struct LinkedList
         length++;
     }
 
+    //function to insert a new node in the end of the list
     void insertAtLast(int value)
     {
         Node *n = new Node;
@@ -71,6 +76,7 @@ struct LinkedList
         length++;
     }
 
+    //function to insert a new node at an already present index
     void insertAt(int index, int value)
     {
 
