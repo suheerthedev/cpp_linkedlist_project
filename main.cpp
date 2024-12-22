@@ -122,6 +122,17 @@ struct LinkedList
             cout << "No data on this index." << endl;
         }
     }
+
+
+    void deleteBegin(){
+        start = start->next;
+        length--;
+        Node* temp =  start;
+        for(int i = 0; i < length; i++){
+            temp->index--;
+            temp = temp->next;
+        }
+    }
 };
 
 int main()
@@ -133,10 +144,10 @@ int main()
     l1.addANewNode(3);
     l1.addANewNode(4);
 
-    cout << "Before Inserting At: " << endl;
+    cout << "Before Deleting At Start: " << endl;
     l1.display();
-    cout << "After Inserting At: " << endl;
-    l1.insertAt(3, 5);
+    cout << "After Deleting At Start: " << endl;
+    l1.deleteBegin();
     l1.display();
     return 0;
 }
