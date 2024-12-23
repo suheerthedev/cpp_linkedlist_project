@@ -152,6 +152,55 @@ struct LinkedList
         last->next = nullptr;
         length--;
     }
+
+    void deleteAt(int index){
+        if(index == 0){
+            start = start->next;
+            length--;
+            Node *temp = start;
+            for (int i = 0; i < length; i++)
+            {
+                temp->index--;
+                temp = temp->next;
+            }
+        }
+        else if(index == length-1){
+            Node* temp = start;
+            
+            for(int i = 0; i < index-1; i++){
+                temp = temp->next;
+            }
+            temp->next = nullptr;
+            last = temp;
+            length--;
+        }
+        else if(index > 0 && index < length-1){
+            Node* temp1 = start; 
+            Node* temp2 = start;
+
+            for(int i = 0; i < index-1 ; i++){
+                temp1 = temp1->next;
+            }
+
+            for(int i = 0; i < index ; i++){
+                temp2 = temp2->next;
+            }
+            Node* temp3 = temp2;
+
+
+
+            temp1->next = temp2->next;
+            length--;
+            for(int i = index; i < length; i++){
+                temp3 = temp3->next;
+                temp3->index--;
+            }
+
+            
+        }else{
+            cout<<"No Data Available At This Index."<<endl;
+        }
+    }
 };
 
 int main()
@@ -161,12 +210,11 @@ int main()
     l1.addANewNode(1);
     l1.addANewNode(2);
     l1.addANewNode(3);
-    l1.addANewNode(4);
 
-    cout << "Before Deleting From Start: " << endl;
+    cout << "Before Deleting From End: " << endl;
     l1.display();
-    cout << "After Deleting From Start: " << endl;
-    l1.deleteEnd();
+    cout << "After Deleting From End: " << endl;
+    l1.deleteAt(1);
     l1.display();
 
     return 0;
