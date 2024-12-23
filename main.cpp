@@ -210,11 +210,12 @@ int main()
     l1.addANewNode(1);
     l1.addANewNode(2);
     l1.addANewNode(3);
+    l1.addANewNode(4);
 
-    cout << "Before Deleting From End: " << endl;
+    cout << "Before Deleting: " << endl;
     l1.display();
-    cout << "After Deleting From End: " << endl;
-    l1.deleteAt(1);
+    cout << "After Deleting: " << endl;
+    l1.deleteAt(3);
     l1.display();
 
     return 0;
