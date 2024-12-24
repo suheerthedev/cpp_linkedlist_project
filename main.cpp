@@ -249,6 +249,16 @@ struct LinkedList
         }
         cout<<"Data is at index: "<<temp->index<<endl;
     }
+
+    void getWhereIndexIs(int index){
+        Node* temp = start;
+
+        for(int i = 0 ; i < index; i++){
+            temp = temp->next;
+        }
+
+        cout<<"Data at Index: "<<temp->index<<" is: "<<temp->data<<endl;
+    }
 };
 
 int main()
@@ -261,8 +271,8 @@ int main()
     l1.addANewNode(4);
 
     l1.display();
-    cout << "Getting through Data: " << endl;
-    l1.getWhereValueIs(4);
+    cout << "Getting through Index: " << endl;
+    l1.getWhereIndexIs(3);
 
     return 0;
 }
