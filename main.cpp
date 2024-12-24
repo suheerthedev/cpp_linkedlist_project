@@ -237,6 +237,18 @@ struct LinkedList
             }
         }
     }
+
+    void getWhereValueIs(int value){
+        Node* temp = start;
+
+        for(int i = 0; i < length; i++){
+            if(temp->data == value){
+                break;
+            }
+            temp = temp->next;
+        }
+        cout<<"Data is at index: "<<temp->index<<endl;
+    }
 };
 
 int main()
@@ -248,11 +260,9 @@ int main()
     l1.addANewNode(3);
     l1.addANewNode(4);
 
-    cout << "Before Deleting Data: " << endl;
     l1.display();
-    cout << "After Deleting Data: " << endl;
-    l1.deleteWhereDataIs(2);
-    l1.display();
+    cout << "Getting through Data: " << endl;
+    l1.getWhereValueIs(4);
 
     return 0;
 }
