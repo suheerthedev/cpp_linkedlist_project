@@ -49,18 +49,13 @@ struct LinkedList
     // function to insert a new node in the start of the list
     void insertAtStart(int value)
     {
-        Node *temp = start;
-        for (int i = 0; i < length; i++)
-        {
-            temp->index++;
-            temp = temp->next;
-        }
         Node *n = new Node;
         n->data = value;
         n->index = 0;
         n->next = start;
         start = n;
         length++;
+        updateIndices();
     }
 
     // function to insert a new node in the end of the list
@@ -97,14 +92,8 @@ struct LinkedList
             n->index = index;
             n->next = temp->next;
             temp->next = n;
-
-            Node *temp1 = n->next;
-            for (int i = index; i < length; i++)
-            {
-                temp1->index++;
-                temp1 = temp1->next;
-            }
             length++;
+            updateIndices();
         }
         else
         {
@@ -363,10 +352,10 @@ int main()
     l1.addANewNode(3);
     l1.addANewNode(4);
 
-    cout << "Before Deleting where data is: " << endl;
+    cout << "Before Insert At Start: " << endl;
     l1.display();
-    cout << "After Deleting where data is: " << endl;
-    l1.deleteWhereDataIs(5);
+    cout << "After Insert At Start: " << endl;
+    l1.insertAt(10, 9);
     l1.display();
 
     return 0;
