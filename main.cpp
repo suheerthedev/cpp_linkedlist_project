@@ -111,12 +111,7 @@ struct LinkedList
         {
             start = start->next;
             length--;
-            Node *temp = start;
-            for (int i = 0; i < length; i++)
-            {
-                temp->index--;
-                temp = temp->next;
-            }
+            updateIndices();
         }
     }
 
@@ -159,12 +154,7 @@ struct LinkedList
             {
                 start = start->next;
                 length--;
-                Node *temp = start;
-                for (int i = 0; i < length; i++)
-                {
-                    temp->index--;
-                    temp = temp->next;
-                }
+                updateIndices();
             }
             else if (index == length - 1)
             {
@@ -192,15 +182,10 @@ struct LinkedList
                 {
                     temp2 = temp2->next;
                 }
-                Node *temp3 = temp2;
 
                 temp1->next = temp2->next;
                 length--;
-                for (int i = index; i < length; i++)
-                {
-                    temp3 = temp3->next;
-                    temp3->index--;
-                }
+                updateIndices();
             }
             else
             {
@@ -211,56 +196,52 @@ struct LinkedList
 
     void deleteWhereDataIs(int value)
     {
-        // to check whether value is present or not
-        bool isPresent = checkForValue(value);
+        if(isEmpty()){
+            cout<<"Cannot delete, List Is Empty"<<endl;
+        }
+        else{
+            // to check whether value is present or not
+            bool isPresent = checkForValue(value);
 
-        // now handling the deletion of the data
-        if (isPresent)
-        {
-            if (start->data == value)
+            // now handling the deletion of the data
+            if (isPresent)
             {
-                start = start->next;
-                length--;
-                Node *temp = start;
-                for (int i = 0; i < length; i++)
+                if (start->data == value)
                 {
-                    temp->index--;
-                    temp = temp->next;
+                    start = start->next;
+                    length--;
+                    updateIndices();
+                }
+                else
+                {
+                    Node *temp1 = start;
+                    Node *temp2 = start;
+
+                    for (int i = 0; i < length; i++)
+                    {
+                        if (temp2->next == nullptr)
+                        {
+                            temp1->next = nullptr;
+                            last = temp1;
+                            length--;
+                            break;
+                        }
+                        else if (temp2->data == value)
+                        {
+                            temp1->next = temp2->next;
+                            length--;
+                            updateIndices();
+                            break;
+                        }
+                        temp1 = temp2;
+                        temp2 = temp2->next;
+                    }
                 }
             }
             else
             {
-                Node *temp1 = start;
-                Node *temp2 = start;
-
-                for (int i = 0; i < length; i++)
-                {
-                    if (temp2->next == nullptr)
-                    {
-                        temp1->next = nullptr;
-                        last = temp1;
-                        length--;
-                        break;
-                    }
-                    else if (temp2->data == value)
-                    {
-                        temp1->next = temp2->next;
-                        length--;
-                        for (int i = temp2->index; i < length; i++)
-                        {
-                            temp2 = temp2->next;
-                            temp2->index--;
-                        }
-                        break;
-                    }
-                    temp1 = temp2;
-                    temp2 = temp2->next;
-                }
+                cout << "Value not present in the list." << endl;
             }
-        }
-        else
-        {
-            cout << "Value not present in the list." << endl;
         }
     }
 
@@ -352,10 +333,10 @@ int main()
     l1.addANewNode(3);
     l1.addANewNode(4);
 
-    cout << "Before Insert At Start: " << endl;
+    cout << "Before Deleting: " << endl;
     l1.display();
-    cout << "After Insert At Start: " << endl;
-    l1.insertAt(10, 9);
+    cout << "After Deleting: " << endl;
+    l1.deleteWhereDataIs(9);
     l1.display();
 
     return 0;
