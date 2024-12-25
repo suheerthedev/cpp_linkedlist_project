@@ -286,14 +286,19 @@ struct LinkedList
 
     void getWhereIndexIs(int index)
     {
-        Node *temp = start;
+        if(index >= 0 && index < length){
+            
+            Node *temp = start;
 
-        for (int i = 0; i < index; i++)
-        {
-            temp = temp->next;
+            for (int i = 0; i < index; i++)
+            {
+                temp = temp->next;
+            }
+
+            cout << "Data at Index: " << temp->index << " is: " << temp->data << endl;
+        }else{
+            cout<<"Invalid, No Data Found."<<endl;
         }
-
-        cout << "Data at Index: " << temp->index << " is: " << temp->data << endl;
     }
 
     //===================HELPER FUNCTION===================
