@@ -10,8 +10,8 @@ struct Node
 
 struct LinkedList
 {
-    Node *start;
-    Node *last;
+    Node *start = nullptr;
+    Node *last = nullptr;
     int length = 0;
 
     // function to add a new node at the end most
@@ -81,18 +81,7 @@ struct LinkedList
 
         if (index == 0)
         {
-            Node *temp = start;
-            for (int i = 0; i < length; i++)
-            {
-                temp->index++;
-                temp = temp->next;
-            }
-            Node *n = new Node;
-            n->data = value;
-            n->index = 0;
-            n->next = start;
-            start = n;
-            length++;
+            insertAtStart(value);
         }
         else if (index > 0 && index < length)
         {
@@ -125,13 +114,20 @@ struct LinkedList
 
     void deleteBegin()
     {
-        start = start->next;
-        length--;
-        Node *temp = start;
-        for (int i = 0; i < length; i++)
+        if (isEmpty)
         {
-            temp->index--;
-            temp = temp->next;
+            cout << "Cannot Delete, List Is Empty." << endl;
+        }
+        else
+        {
+            start = start->next;
+            length--;
+            Node *temp = start;
+            for (int i = 0; i < length; i++)
+            {
+                temp->index--;
+                temp = temp->next;
+            }
         }
     }
 
@@ -141,6 +137,10 @@ struct LinkedList
         then we would update the last to comeback one node back
         and update its pointer to nullptr
         */
+        if (isEmpty)
+        {
+            cout << "Cannot Delete, List Is Empty." << endl;
+        }
         Node *temp = start;
 
         for (int i = 0; i < length - 2; i++)
@@ -153,8 +153,10 @@ struct LinkedList
         length--;
     }
 
-    void deleteAt(int index){
-        if(index == 0){
+    void deleteAt(int index)
+    {
+        if (index == 0)
+        {
             start = start->next;
             length--;
             Node *temp = start;
@@ -164,69 +166,82 @@ struct LinkedList
                 temp = temp->next;
             }
         }
-        else if(index == length-1){
-            Node* temp = start;
-            
-            for(int i = 0; i < index-1; i++){
+        else if (index == length - 1)
+        {
+            Node *temp = start;
+
+            for (int i = 0; i < index - 1; i++)
+            {
                 temp = temp->next;
             }
             temp->next = nullptr;
             last = temp;
             length--;
         }
-        else if(index > 0 && index < length-1){
-            Node* temp1 = start; 
-            Node* temp2 = start;
+        else if (index > 0 && index < length - 1)
+        {
+            Node *temp1 = start;
+            Node *temp2 = start;
 
-            for(int i = 0; i < index-1 ; i++){
+            for (int i = 0; i < index - 1; i++)
+            {
                 temp1 = temp1->next;
             }
 
-            for(int i = 0; i < index ; i++){
+            for (int i = 0; i < index; i++)
+            {
                 temp2 = temp2->next;
             }
-            Node* temp3 = temp2;
-
-
+            Node *temp3 = temp2;
 
             temp1->next = temp2->next;
             length--;
-            for(int i = index; i < length; i++){
+            for (int i = index; i < length; i++)
+            {
                 temp3 = temp3->next;
                 temp3->index--;
             }
-
-            
-        }else{
-            cout<<"No Data Available At This Index."<<endl;
+        }
+        else
+        {
+            cout << "No Data Available At This Index." << endl;
         }
     }
-    
-    void deleteWhereDataIs(int value){
 
-        if(start->data == value){
+    void deleteWhereDataIs(int value)
+    {
+
+        if (start->data == value)
+        {
             start = start->next;
             length--;
-        Node* temp = start;
-            for(int i =0 ; i < length; i++){
+            Node *temp = start;
+            for (int i = 0; i < length; i++)
+            {
                 temp->index--;
                 temp = temp->next;
             }
-        }else{
-            Node* temp1 = start;
-            Node* temp2 = start;
+        }
+        else
+        {
+            Node *temp1 = start;
+            Node *temp2 = start;
 
-            for(int i = 0; i < length; i++){
-                if(temp2->next == nullptr){
+            for (int i = 0; i < length; i++)
+            {
+                if (temp2->next == nullptr)
+                {
                     temp1->next = nullptr;
-                    last = temp1;   
+                    last = temp1;
                     length--;
                     break;
                 }
-                else if(temp2->data == value){
+                else if (temp2->data == value)
+                {
                     temp1->next = temp2->next;
                     length--;
-                    for(int i = temp2->index ; i < length; i++){
+                    for (int i = temp2->index; i < length; i++)
+                    {
                         temp2 = temp2->next;
                         temp2->index--;
                     }
@@ -238,26 +253,37 @@ struct LinkedList
         }
     }
 
-    void getWhereValueIs(int value){
-        Node* temp = start;
+    void getWhereValueIs(int value)
+    {
+        Node *temp = start;
 
-        for(int i = 0; i < length; i++){
-            if(temp->data == value){
+        for (int i = 0; i < length; i++)
+        {
+            if (temp->data == value)
+            {
                 break;
             }
             temp = temp->next;
         }
-        cout<<"Data is at index: "<<temp->index<<endl;
+        cout << "Data is at index: " << temp->index << endl;
     }
 
-    void getWhereIndexIs(int index){
-        Node* temp = start;
+    void getWhereIndexIs(int index)
+    {
+        Node *temp = start;
 
-        for(int i = 0 ; i < index; i++){
+        for (int i = 0; i < index; i++)
+        {
             temp = temp->next;
         }
 
-        cout<<"Data at Index: "<<temp->index<<" is: "<<temp->data<<endl;
+        cout << "Data at Index: " << temp->index << " is: " << temp->data << endl;
+    }
+
+    // function to check whether list is empty or not, returns a boolean
+    bool isEmpty()
+    {
+        return start == nullptr;
     }
 };
 
