@@ -109,7 +109,9 @@ struct LinkedList
         }
         else
         {
+            Node* toDelete = start;
             start = start->next;
+            delete toDelete;
             length--;
             updateIndices();
         }
@@ -134,9 +136,10 @@ struct LinkedList
             {
                 temp = temp->next;
             }
-
+            Node* toDelete = last;
             last = temp;
             last->next = nullptr;
+            delete toDelete;
             length--;
         }
     }
@@ -152,21 +155,11 @@ struct LinkedList
 
             if (index == 0)
             {
-                start = start->next;
-                length--;
-                updateIndices();
+                deleteBegin();
             }
             else if (index == length - 1)
             {
-                Node *temp = start;
-
-                for (int i = 0; i < index - 1; i++)
-                {
-                    temp = temp->next;
-                }
-                temp->next = nullptr;
-                last = temp;
-                length--;
+               deleteEnd();
             }
             else if (index > 0 && index < length - 1)
             {
@@ -182,8 +175,9 @@ struct LinkedList
                 {
                     temp2 = temp2->next;
                 }
-
+                Node* toDelete = temp2;
                 temp1->next = temp2->next;
+                delete toDelete;
                 length--;
                 updateIndices();
             }
@@ -208,9 +202,7 @@ struct LinkedList
             {
                 if (start->data == value)
                 {
-                    start = start->next;
-                    length--;
-                    updateIndices();
+                    deleteBegin();
                 }
                 else
                 {
@@ -223,12 +215,14 @@ struct LinkedList
                         {
                             temp1->next = nullptr;
                             last = temp1;
+                            delete temp2;
                             length--;
                             break;
                         }
                         else if (temp2->data == value)
                         {
                             temp1->next = temp2->next;
+                            delete temp2;
                             length--;
                             updateIndices();
                             break;
