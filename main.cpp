@@ -298,6 +298,8 @@ struct LinkedList
 
     //===================HELPER FUNCTION===================
 
+
+    //this function check whether a value exists in the list or not
     bool checkForValue(int value){
         bool isPresent = false;
         Node* checker = start;
