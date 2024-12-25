@@ -211,14 +211,7 @@ struct LinkedList
     void deleteWhereDataIs(int value)
     {
         //to check whether value is present or not
-        bool isPresent = false;
-        Node* checker = start;
-        for(int i = 0 ; i < length; i++){
-            if(checker->data == value){
-                isPresent = true;
-            }
-            checker = checker->next;
-        }
+        bool isPresent = checkForValue(value);
 
         //now handling the deletion of the data
         if(isPresent){
@@ -270,6 +263,10 @@ struct LinkedList
 
     void getWhereValueIs(int value)
     {
+        //to check if value is present or not
+        bool isPresent = checkForValue(value);
+
+        if(isPresent){
         Node *temp = start;
 
         for (int i = 0; i < length; i++)
@@ -281,6 +278,10 @@ struct LinkedList
             temp = temp->next;
         }
         cout << "Data is at index: " << temp->index << endl;
+        }
+        else{
+            cout<<"Data is not avaiable in the list."<<endl;
+        }
     }
 
     void getWhereIndexIs(int index)
@@ -293,6 +294,20 @@ struct LinkedList
         }
 
         cout << "Data at Index: " << temp->index << " is: " << temp->data << endl;
+    }
+
+    //===================HELPER FUNCTION===================
+
+    bool checkForValue(int value){
+        bool isPresent = false;
+        Node* checker = start;
+        for(int i = 0 ; i < length; i++){
+            if(checker->data == value){
+                isPresent = true;
+            }
+            checker = checker->next;
+        }
+        return isPresent;
     }
 
     // function to check whether list is empty or not, returns a boolean
