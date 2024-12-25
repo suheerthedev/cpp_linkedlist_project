@@ -114,7 +114,7 @@ struct LinkedList
 
     void deleteBegin()
     {
-        if (isEmpty)
+        if (isEmpty())
         {
             cout << "Cannot Delete, List Is Empty." << endl;
         }
@@ -137,7 +137,7 @@ struct LinkedList
         then we would update the last to comeback one node back
         and update its pointer to nullptr
         */
-        if (isEmpty)
+        if (isEmpty())
         {
             cout << "Cannot Delete, List Is Empty." << endl;
         }
@@ -210,46 +210,61 @@ struct LinkedList
 
     void deleteWhereDataIs(int value)
     {
+        //to check whether value is present or not
+        bool isPresent = false;
+        Node* checker = start;
+        for(int i = 0 ; i < length; i++){
+            if(checker->data == value){
+                isPresent = true;
+            }
+            checker = checker->next;
+        }
 
-        if (start->data == value)
-        {
-            start = start->next;
-            length--;
-            Node *temp = start;
-            for (int i = 0; i < length; i++)
+        //now handling the deletion of the data
+        if(isPresent){
+            if (start->data == value)
             {
-                temp->index--;
-                temp = temp->next;
+                start = start->next;
+                length--;
+                Node *temp = start;
+                for (int i = 0; i < length; i++)
+                {
+                    temp->index--;
+                    temp = temp->next;
+                }
+            }
+            else
+            {
+                Node *temp1 = start;
+                Node *temp2 = start;
+
+                for (int i = 0; i < length; i++)
+                {
+                    if (temp2->next == nullptr)
+                    {
+                        temp1->next = nullptr;
+                        last = temp1;
+                        length--;
+                        break;
+                    }
+                    else if (temp2->data == value)
+                    {
+                        temp1->next = temp2->next;
+                        length--;
+                        for (int i = temp2->index; i < length; i++)
+                        {
+                            temp2 = temp2->next;
+                            temp2->index--;
+                        }
+                        break;
+                    }
+                    temp1 = temp2;
+                    temp2 = temp2->next;
+                }
             }
         }
-        else
-        {
-            Node *temp1 = start;
-            Node *temp2 = start;
-
-            for (int i = 0; i < length; i++)
-            {
-                if (temp2->next == nullptr)
-                {
-                    temp1->next = nullptr;
-                    last = temp1;
-                    length--;
-                    break;
-                }
-                else if (temp2->data == value)
-                {
-                    temp1->next = temp2->next;
-                    length--;
-                    for (int i = temp2->index; i < length; i++)
-                    {
-                        temp2 = temp2->next;
-                        temp2->index--;
-                    }
-                    break;
-                }
-                temp1 = temp2;
-                temp2 = temp2->next;
-            }
+        else{
+            cout<<"Value not present in the list."<<endl;
         }
     }
 
@@ -296,9 +311,11 @@ int main()
     l1.addANewNode(3);
     l1.addANewNode(4);
 
+    cout << "Before Deleting where data is: " << endl;
     l1.display();
-    cout << "Getting through Index: " << endl;
-    l1.getWhereIndexIs(3);
+    cout << "After Deleting where data is: " << endl;
+    l1.deleteWhereDataIs(5);
+    l1.display();
 
     return 0;
 }
