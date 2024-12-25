@@ -316,6 +316,11 @@ struct LinkedList
                 temp = temp->next;
             }
     }
+
+    //returns the number of elements in linkedlist
+    int elementsInLinkedList(){
+        return length;
+    }
 };
 
 int main()
