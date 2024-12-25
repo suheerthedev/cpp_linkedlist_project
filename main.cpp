@@ -141,80 +141,93 @@ struct LinkedList
         {
             cout << "Cannot Delete, List Is Empty." << endl;
         }
-        Node *temp = start;
-
-        for (int i = 0; i < length - 2; i++)
+        else
         {
-            temp = temp->next;
-        }
 
-        last = temp;
-        last->next = nullptr;
-        length--;
+            Node *temp = start;
+
+            for (int i = 0; i < length - 2; i++)
+            {
+                temp = temp->next;
+            }
+
+            last = temp;
+            last->next = nullptr;
+            length--;
+        }
     }
 
     void deleteAt(int index)
     {
-        if (index == 0)
+        if (isEmpty())
         {
-            start = start->next;
-            length--;
-            Node *temp = start;
-            for (int i = 0; i < length; i++)
-            {
-                temp->index--;
-                temp = temp->next;
-            }
-        }
-        else if (index == length - 1)
-        {
-            Node *temp = start;
-
-            for (int i = 0; i < index - 1; i++)
-            {
-                temp = temp->next;
-            }
-            temp->next = nullptr;
-            last = temp;
-            length--;
-        }
-        else if (index > 0 && index < length - 1)
-        {
-            Node *temp1 = start;
-            Node *temp2 = start;
-
-            for (int i = 0; i < index - 1; i++)
-            {
-                temp1 = temp1->next;
-            }
-
-            for (int i = 0; i < index; i++)
-            {
-                temp2 = temp2->next;
-            }
-            Node *temp3 = temp2;
-
-            temp1->next = temp2->next;
-            length--;
-            for (int i = index; i < length; i++)
-            {
-                temp3 = temp3->next;
-                temp3->index--;
-            }
+            cout << "Cannot Delete, List Is Empty." << endl;
         }
         else
         {
-            cout << "No Data Available At This Index." << endl;
+
+            if (index == 0)
+            {
+                start = start->next;
+                length--;
+                Node *temp = start;
+                for (int i = 0; i < length; i++)
+                {
+                    temp->index--;
+                    temp = temp->next;
+                }
+            }
+            else if (index == length - 1)
+            {
+                Node *temp = start;
+
+                for (int i = 0; i < index - 1; i++)
+                {
+                    temp = temp->next;
+                }
+                temp->next = nullptr;
+                last = temp;
+                length--;
+            }
+            else if (index > 0 && index < length - 1)
+            {
+                Node *temp1 = start;
+                Node *temp2 = start;
+
+                for (int i = 0; i < index - 1; i++)
+                {
+                    temp1 = temp1->next;
+                }
+
+                for (int i = 0; i < index; i++)
+                {
+                    temp2 = temp2->next;
+                }
+                Node *temp3 = temp2;
+
+                temp1->next = temp2->next;
+                length--;
+                for (int i = index; i < length; i++)
+                {
+                    temp3 = temp3->next;
+                    temp3->index--;
+                }
+            }
+            else
+            {
+                cout << "No Data Available At This Index." << endl;
+            }
         }
     }
 
     void deleteWhereDataIs(int value)
     {
-        //to check whether value is present or not
+        // to check whether value is present or not
         bool isPresent = checkForValue(value);
 
-        //now handling the deletion of the data
-        if(isPresent){
+        // now handling the deletion of the data
+        if (isPresent)
+        {
             if (start->data == value)
             {
                 start = start->next;
@@ -256,38 +269,42 @@ struct LinkedList
                 }
             }
         }
-        else{
-            cout<<"Value not present in the list."<<endl;
+        else
+        {
+            cout << "Value not present in the list." << endl;
         }
     }
 
     void getWhereValueIs(int value)
     {
-        //to check if value is present or not
+        // to check if value is present or not
         bool isPresent = checkForValue(value);
 
-        if(isPresent){
-        Node *temp = start;
-
-        for (int i = 0; i < length; i++)
+        if (isPresent)
         {
-            if (temp->data == value)
+            Node *temp = start;
+
+            for (int i = 0; i < length; i++)
             {
-                break;
+                if (temp->data == value)
+                {
+                    break;
+                }
+                temp = temp->next;
             }
-            temp = temp->next;
+            cout << "Data is at index: " << temp->index << endl;
         }
-        cout << "Data is at index: " << temp->index << endl;
-        }
-        else{
-            cout<<"Data is not avaiable in the list."<<endl;
+        else
+        {
+            cout << "Data is not avaiable in the list." << endl;
         }
     }
 
     void getWhereIndexIs(int index)
     {
-        if(index >= 0 && index < length){
-            
+        if (index >= 0 && index < length)
+        {
+
             Node *temp = start;
 
             for (int i = 0; i < index; i++)
@@ -296,20 +313,24 @@ struct LinkedList
             }
 
             cout << "Data at Index: " << temp->index << " is: " << temp->data << endl;
-        }else{
-            cout<<"Invalid, No Data Found."<<endl;
+        }
+        else
+        {
+            cout << "Invalid, No Data Found." << endl;
         }
     }
 
     //===================HELPER FUNCTION===================
 
-
-    //this function check whether a value exists in the list or not
-    bool checkForValue(int value){
+    // this function check whether a value exists in the list or not
+    bool checkForValue(int value)
+    {
         bool isPresent = false;
-        Node* checker = start;
-        for(int i = 0 ; i < length; i++){
-            if(checker->data == value){
+        Node *checker = start;
+        for (int i = 0; i < length; i++)
+        {
+            if (checker->data == value)
+            {
                 isPresent = true;
             }
             checker = checker->next;
@@ -321,6 +342,15 @@ struct LinkedList
     bool isEmpty()
     {
         return start == nullptr;
+    }
+
+    void updateIndices(){
+        Node *temp = start;
+            for (int i = 0; i < length; i++)
+            {
+                temp->index = i;
+                temp = temp->next;
+            }
     }
 };
 
