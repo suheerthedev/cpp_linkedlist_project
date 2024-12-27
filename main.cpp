@@ -35,7 +35,7 @@ struct LinkedList
         length++;
     }
 
-    // function to traverse and display the content of the list
+    // method to traverse and display the content of the list
     void display()
     {
         Node *temp = start;
@@ -46,7 +46,7 @@ struct LinkedList
         }
     }
 
-    // function to insert a new node in the start of the list
+    // method to insert a new node in the start of the list
     void insertAtStart(int value)
     {
         Node *n = new Node;
@@ -58,7 +58,7 @@ struct LinkedList
         updateIndices();
     }
 
-    // function to insert a new node in the end of the list
+    // method to insert a new node in the end of the list
     void insertAtLast(int value)
     {
         Node *n = new Node;
@@ -70,7 +70,7 @@ struct LinkedList
         length++;
     }
 
-    // function to insert a new node at an already present index
+    // method to insert a new node at an already present index
     void insertAt(int index, int value)
     {
 
@@ -101,6 +101,7 @@ struct LinkedList
         }
     }
 
+    //this method deletes the node at the beginning of the list
     void deleteBegin()
     {
         if (isEmpty())
@@ -117,6 +118,7 @@ struct LinkedList
         }
     }
 
+    //this method deletes the node in the end of the list
     void deleteEnd()
     {
         /*this function will go the index before the last one and
@@ -144,6 +146,7 @@ struct LinkedList
         }
     }
 
+    //this method deletes the node on the index provided by the user
     void deleteAt(int index)
     {
         if (isEmpty())
@@ -188,6 +191,7 @@ struct LinkedList
         }
     }
 
+    //delete the node that has the first instance of the data provided by user
     void deleteWhereDataIs(int value)
     {
         if(isEmpty()){
@@ -239,6 +243,7 @@ struct LinkedList
         }
     }
 
+    //this method get the index of the node which contains the value provided by the user
     void getWhereValueIs(int value)
     {
         // to check if value is present or not
@@ -264,6 +269,7 @@ struct LinkedList
         }
     }
 
+    //this method gets value of the node that is on the index provided by the user
     void getWhereIndexIs(int index)
     {
         if (index >= 0 && index < length)
@@ -284,7 +290,7 @@ struct LinkedList
         }
     }
 
-    //===================HELPER FUNCTION===================
+    //=================== HELPER FUNCTIONS & METHODS ===================
 
     // this function check whether a value exists in the list or not
     bool checkForValue(int value)
@@ -308,6 +314,7 @@ struct LinkedList
         return start == nullptr;
     }
 
+    //this method updates indices
     void updateIndices(){
         Node *temp = start;
             for (int i = 0; i < length; i++)
@@ -317,7 +324,7 @@ struct LinkedList
             }
     }
 
-    //returns the number of elements in linkedlist
+    //this functions returns the number of elements in linkedlist
     int elementsInLinkedList(){
         return length;
     }
