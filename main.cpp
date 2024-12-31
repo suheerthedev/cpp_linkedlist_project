@@ -17,58 +17,32 @@ struct LinkedList
     // insertBegin(value)
     void insertBegin(int value)
     {
-        // ye if check karega ke list empty hai ke nahi, humare helper function "isEmpty ki madad"
+        // checks if the list is empty or not
+        // handles case where list is empty
         if (isEmpty())
         {
-            // ye line memory me ik empty node banadega "n" ke naam se
             Node *n = new Node;
-
-            // ab is node mein woh value pass hogi jo user ne function call karwate howe di
             n->data = value;
-
-            // iski index humne zero rakhi hai kion kay hum head pe insert kar rahay hain or head/pehli node ki index zero hoti hai
             n->index = 0;
-
-            // iska pointer null hoga kion  kay ye wahid node hogi list mein, because hum check kar chuke hain ke list empty hai ke nahi
             n->next = nullptr;
-
-            // start or last ko is node pe lakar betha deingay, because ye wahid node hai abhi humari list mein
+            
             start = n;
             last = n;
 
-            // iska tou pata he hoga
             length++;
         }
-        /*or agar list empty nahi howi tou ye chale ga,
-        ab ismein hum ye assume karte howe handling kareingay ke
-        atleast ik node tou list mein majood hai*/
+        // handle case where is list is not empty
         else
         {
-            // ye line memory me ik empty node banadega "n" ke naam se
             Node *n = new Node;
-
-            // ab is node mein woh value pass hogi jo user ne function call karwate howe di
             n->data = value;
-
-            // iski index humne zero rakhi hai kion kay hum head pe insert kar rahay hain or head/pehli node ki index zero hoti hai
             n->index = 0;
-
-            /*is node ko humne start pe point karwa kion kay start abhi pehli node pe
-            betha hai or is "pehli wali" node se pehlay hum ik new node rakhna chaa rahe hain,
-            isliyue hum new node ka pointer jo ke "n->next" hai usko start pe point
-            karwadeingay
-            */
             n->next = start;
 
-            /* ab start kion kay humesha pehli wali node pe hona chahiye hai, lekin
-            ab list mein ik new node agayi hai jo ke start se pehli wali node hai
-            isliye hum start ko jump karwa kar us node pe rakhdeingay */
             start = n;
 
-            // ye tou pata he hoga
             length++;
 
-            // sab nodes ki indices update kardein, helper method use karte howe
             updateIndices();
         }
     }
@@ -76,6 +50,8 @@ struct LinkedList
     // insertEnd(int value)
     void insertEnd(int value)
     {
+        // checks if the list is empty or not
+        // handles case where list is empty
         if (isEmpty())
         {
             Node *n = new Node;
@@ -87,6 +63,7 @@ struct LinkedList
             last = n;
             length++;
         }
+        // handle case where is list is not empty
         else
         {
             Node *n = new Node;
@@ -100,17 +77,17 @@ struct LinkedList
         }
     }
 
-    // insertAt(int index, int value)
+    // this method takes index and value from user, and insert a new node with the value provided  by user
     void insertAt(int index, int value)
     {
+        // when user wants to add in the start of list
         if (index == 0)
         {
-            // when user wants to add in the start of list
             insertBegin(value);
         }
+        // when user choose to insert in between or in the end of the list
         else if (index > 0 && index < length)
         {
-            // beech mein kahein pe
             Node *temp = start;
 
             for (int i = 0; i < index - 1; i++)
@@ -126,6 +103,7 @@ struct LinkedList
             length++;
             updateIndices();
         }
+        // display error message when index is not valid
         else
         {
             cout << endl
@@ -133,14 +111,16 @@ struct LinkedList
         }
     }
 
-    // deleteBegin
+    // this method deletes the node present in the start of the list
     void deleteBegin()
     {
+        // checks if the list is empty or not
         if (isEmpty())
         {
             cout << endl
                  << "Unable to delete, List is Empty :(" << endl;
         }
+        // handles the case when the list is not empty
         else
         {
             Node *toDelete = start;
@@ -151,14 +131,16 @@ struct LinkedList
         }
     }
 
-    // deleteEnd
+    // this method deletes the node present in the end of the list
     void deleteEnd()
     {
+        // checking if the list is empty
         if (isEmpty())
         {
             cout << endl
                  << "Unable to delete, List is Empty :(" << endl;
         }
+        // handling case where list is not empty
         else
         {
             Node *temp = start;
@@ -176,29 +158,31 @@ struct LinkedList
         }
     }
 
-    // deleteAt(index)
+    // this method deletes the node present on the index given by the user
     void deleteAt(int index)
     {
+        // checking if the list is empty or not
         if (isEmpty())
         {
             cout << endl
                  << "Unable to delete, List is Empty :(" << endl;
         }
+        // handling the cases when list is not empty
         else
         {
             if (index == 0)
             {
-                // jab head delete karna hoga
+                // when user chooses to delete the first node of the list
                 deleteBegin();
             }
             else if (index == length - 1)
             {
-                // jab tail ko delete karna hoga
+                // when user chooses to delete the last node of the list
                 deleteEnd();
             }
             else if (index > 0 && index < length - 1)
             {
-                // head or tail ke beech mein jo nodes hongi unko handle kareingay
+                // when user chooses to delete any node that is present between head and tail
                 Node *prev = start;
                 Node *temp = start;
 
@@ -221,32 +205,37 @@ struct LinkedList
         }
     }
 
-    // deleteWhereDataIs(value)
+    // this method deletes the nodes which has the first instance of the data provided by the user
     void deleteWhereDataIs(int value)
     {
+        // checking if the list is empty or not
         if (isEmpty())
         {
             cout << endl
                  << "Unable to delete, List is Empty :(" << endl;
         }
+        // handling cases when the list is not empty
         else
         {
+            // this if will run if the value is already present in the list
             if (checkForValue(value))
             {
-                // ye jab run hoga, jab na tou list empty hogi or value bhi available hogi
+                // when the data is found in the first node of the list
                 if (start->data == value)
                 {
-                    // jab value humein head pe hi miljayegi
+
                     deleteBegin();
                 }
+                // when the data is found in the last node of the list
                 else if (last->data == value)
                 {
-                    // jab value humein tail pe miljayegi
+
                     deleteEnd();
                 }
+                // when the data is found in any node that is in between the head and the tail of the list
                 else
                 {
-                    // jab value beech mein kahein hogi
+
                     Node *prev = start;
                     Node *temp = start;
 
@@ -266,6 +255,7 @@ struct LinkedList
                     updateIndices();
                 }
             }
+            // displaying error message in case the list doesnt has the value
             else
             {
                 cout << "Sorry, value is not present in the list." << endl;
@@ -273,16 +263,19 @@ struct LinkedList
         }
     }
 
-    // search based on index
+    // this method searches based on index provided by user
     void getWhereIndexIs(int index)
     {
+        // checking if the list is empty or not
         if (isEmpty())
         {
             cout << endl
                  << "List is Empty, Cannot Search an Empty List :(" << endl;
         }
+        // handling cases when the list is not empty
         else
         {
+            // finds the value if index is correct
             if (index >= 0 && index < length)
             {
                 Node *temp = start;
@@ -293,25 +286,28 @@ struct LinkedList
                 cout << endl
                      << "The Data at given index is: " << temp->data << endl;
             }
+            // display errro message incase index is invalid
             else
             {
                 cout << endl
-                     << "No data found on this index." << endl;
+                     << "Invalid index." << endl;
             }
         }
     }
 
-    // search based on value
+    // this method searches based on the value provided by the user
     void getWhereValueIs(int value)
     {
+        // checks if the list is empty or not
         if (isEmpty())
         {
             cout << endl
                  << "List is Empty, Cannot Search an Empty List :(" << endl;
         }
+        // handles the cases when list is not empty
         else
         {
-
+            // this if will run if the value is already present in the list
             if (checkForValue(value))
             {
                 Node *temp = start;
@@ -326,6 +322,7 @@ struct LinkedList
                 cout << endl
                      << "The data is on the index: " << temp->index << endl;
             }
+            // displays error message if value is not present in the list
             else
             {
                 cout << endl
@@ -340,23 +337,16 @@ struct LinkedList
         return length;
     }
 
-    void sortList()
-    {
-        Node *temp = start;
-        for (int i = 0; i < length; i++)
-        {
-            temp = temp->next;
-        }
-    }
-
-    // display method
+    // traverses and display the elements in the list
     void display()
     {
+        // checks if list is empty or not
         if (isEmpty())
         {
             cout << endl
                  << "List is Empty Right Now." << endl;
         }
+        // displays if list is not empty
         else
         {
 
@@ -373,11 +363,13 @@ struct LinkedList
 
     //============ HELPER FUNC & METHODS ==========
 
+    // checks whether the list is empty or not
     bool isEmpty()
     {
         return start == nullptr;
     }
 
+    // this method updates indices of all the nodes in the list
     void updateIndices()
     {
         Node *temp = start;
@@ -388,6 +380,7 @@ struct LinkedList
         }
     }
 
+    // this function checks whether the given value is present or not in the list
     bool checkForValue(int value)
     {
         Node *temp = start;
@@ -406,6 +399,7 @@ struct LinkedList
     }
 };
 
+// this functions gets the value from user and returns it
 int getValue()
 {
     int value;
@@ -416,6 +410,7 @@ int getValue()
     return value;
 }
 
+// this functions gets the index from user and returns it
 int getIndex()
 {
     int index;
@@ -426,6 +421,7 @@ int getIndex()
     return index;
 }
 
+// this function asks user if they want to continue with the program or not
 bool isContinue()
 {
     bool condition;
@@ -435,14 +431,17 @@ bool isContinue()
     return condition;
 }
 
+// this method displays exiting message
 void exitProgram()
 {
     cout << "Exiting the program. Goodbye!" << endl;
     return;
 }
 
+// created list
 LinkedList myList;
 
+// method which runs main menu
 void mainMenu()
 {
     int choice;
@@ -596,6 +595,7 @@ void mainMenu()
 }
 int main()
 {
+    // everything runs through main menu method
     mainMenu();
 
     return 0;
